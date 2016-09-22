@@ -1,0 +1,100 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin: 0 auto;
+}
+.container-fluid { 
+	background-color: lightblue;
+}
+ul{ 
+	list-style-type:none;
+}
+
+#output{
+	background-color: blue;
+}
+#leftoutput{ 
+	height: 30px;
+	float: left;
+	background-color:#e6e6e6;
+	width: 1000px;
+	border: 1px  solid #ccccff;
+}
+#leftoutput p{
+	margin-top: 4px;
+	margin-left: 10px;
+}
+#rightoutput{ 
+	height: 30px;
+	float: right;
+	width: 100px;
+}
+#leftimage{
+	float: left;
+	width: 50px;
+}
+#leftimage img{
+	display: block;
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+}
+#rightimage{
+	width: 50px;
+	float: right;
+}
+#rightimage img {
+	display: block;
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+}
+#leftoutput2{
+	margin-top: 7px;
+	height: 30px;
+	width: 960px;
+	border: 1px  solid #ccccff;
+	float: left;
+	background-color:#f2f2f2;
+}
+#leftoutput2 p{
+	margin-top: 4px;
+	margin-left: 10px;
+}
+#rightoutput2{
+	margin-top: 7px;
+	height: 30px;
+	width: 100px;
+	float: left;
+}
+#leftoutput3{
+	font-weight: bold;
+	margin-top: 7px;
+	height: 30px;
+	width: 960px;
+	border: 1px  solid #ccccff;
+	float: left;
+	background-color:#f2f2f2;
+}
+#leftoutput3 p{
+	margin-top: 4px;
+	margin-left: 10px;
+}
+#leftoutput4{
+	font-weight: bold;
+	margin-top: 7px;
+	margin-bottom: 30px;
+	height: 30px;
+	width: 960px;
+	border: 1px  solid #ccccff;
+	float: left;
+	background-color:#f2f2f2;
+}
+#leftoutput4 p{
+	margin-top: 4px;
+	margin-left: 10px;
+}
+
+
+
+
