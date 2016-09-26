@@ -1,0 +1,85 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin: 0 auto;
+}
+.container-fluid { 
+	background-color: lightblue;
+}
+ul{ 
+	list-style-type:none;
+}
+
+
+#rightimage img {
+	display: block;
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+}
+#leftimage{
+	width: 49px;
+	float: left;
+}
+#leftimage img {
+	display: block;
+	width: 26px;
+	height: 26px;
+	margin: 0 auto;
+	margin-top: 2px;
+}
+#leftimage i {
+	padding-top: 5px;
+	display: block;
+	width: 0px;
+	height: 30px;
+	margin: 0 auto;
+	margin-top: 2px;
+}
+
+#addimage{
+	width: 49px;
+	float: left;
+}
+#addimage img {
+	display: block;
+	width: 30px;
+	height: 30px;
+	margin: 0 auto;
+}
+#addimage i {
+	padding-top: 7.5px;
+	display: block;
+	width: 0px;
+	height: 30px;
+	margin: 0 auto;
+}
+#leftoutput2{
+	margin-top: 7px;
+	height: 30px;
+	width: 810px;
+	border: 1px  solid #ccccff;
+	float: left;
+	background-color:#f2f2f2;
+}
+#leftoutput2 p{
+	margin-top: 4px;
+	margin-left: 10px;
+}
+#rightoutput2{
+	margin-top: 7px;
+	height: 30px;
+	width: 200px;
+	float: left;
+	border: 1px  solid #ccccff;
+	background-color:#f2f2f2;
+}
+
+
+
+
+
+
+
+
+

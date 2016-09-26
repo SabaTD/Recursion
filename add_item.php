@@ -14,25 +14,30 @@
 			<?php 
 				include 'Includes/header.php'; 
 				if(isset($_GET["alert"])){ $msg=$_GET["alert"]; echo $msg;}
-				if(isset($_GET["ID"])){ $ID=$_GET["ID"];}
+
 				$conn = mysql_pconnect('localhost', 'root');
 				$dbconn = mysql_select_db('products');		
-				$select = mysql_query("select * from category where id='$ID' ");
+				$select = mysql_query("SELECT * FROM menus WHERE type = '1' ");
 				$num_rows = mysql_num_rows($select);
-				$result = mysql_fetch_array($select);
 
 				// Begin : add_subcategory
 				echo "<div id='add_subcategory'>";
-					echo "<div id='form2'>";
-						echo "<h5 id = 'description1'>"."<strong>"."Item of : "."</strong>".$result['category_name']."</h5>";
-					echo "</div>";
-					
-					echo "<form action='add_item_action.php'  method='post' class = 'form-group' >";
-						echo "<input type='text' name='item_name' class = 'form-control'>"."<br />";
-						echo "<input type='text' name='item_desc' class = 'form-control'>"."<br />";
-						echo "<input type='text' name='item_price' class = 'form-control'>"."<br />";
-						echo "<input type='file' name='item_desc' class = 'form-control'>"."<br />";
-						echo "<input type='hidden' name='category_id' value=\"$ID\">";
+					echo "<form action='add_item_action.php' enctype='multipart/form-data'  method='post' class = 'form-group' >";
+						echo "<div id='form2'>";
+							echo "<h5 id = 'description1'>";
+								echo "<strong>" . "Subcategory of : " . "</strong>";
+								echo "<select name='ParentName'>";
+									for ($i=0; $i <$num_rows; $i++) { 
+										$result = mysql_fetch_array($select);
+										echo "<option value=".$result["id"]."> " . $result["menu_name"] . "</option>";   
+									}
+								echo "</select>";
+							echo "</h5>";	
+						echo "</div>";
+						echo '<input type="text" name="item_name" class ="form-control" placeholder="Name"><br />';
+						echo '<input type="text" name="item_desc" class ="form-control" placeholder="Description"><br />';
+						echo '<input type="text" name="item_price" class ="form-control" placeholder="Price"><br />';
+						echo '<input type="file" name="photo" class ="form-control"><br />';
 						echo "<input type='submit' value='Add' class = 'btn btn-primary'>";
 					echo "</form>";//end of form
 

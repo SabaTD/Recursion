@@ -3,143 +3,111 @@
 	<head>
 		<title>Title of the document</title>
 		<link rel="stylesheet" type="text/css" href="../Style/style.css">
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
 
 	<body>
 			
 			<?php 		
-				$conn = mysql_pconnect('localhost', 'root');
-				$dbconn = mysql_select_db('products');		
-				$select = mysql_query("select * from category");
-				$rows = mysql_num_rows($select);
-				$result = mysql_fetch_array($select);
-				$category_id = $result['id'];
-				print_r($result);
+				mysql_connect("localhost", "root", "") or die(mysql_error());
+				mysql_select_db("products") or die(mysql_error());
 
-				/*
-				function getTree($category_id)
-				{
-							$arr = array();
+				function display_menus($parent_id = 0){
 
-							$result = mysql_query("select * from sub_category where category_id='$category_id'");
-							while ($row = mysql_fetch_array($result)) { 
-								$arr[] = array(
-									"Title" => $row["sub_name"],
-									"Children" => getTree($row["sub_name"])
-								);
+					$query = mysql_query("SELECT * FROM menus WHERE parent_id = "  .$parent_id. "  ORDER BY type") or die(mysql_error());
+
+					if(mysql_num_rows($query) > 0){
+						echo "<ul>";
+							while($row = mysql_fetch_array($query)){
+								$status = $row['status'];
+								if( $status == '0'){
+									echo '<li id="borders">';
+
+										// Begin : output2;
+										echo '<div id="output2">'; 
+											$type = $row['type'];
+											$main_id = $row['id']; 
+
+											
+
+											// Begin : rightoutput2;
+											echo '<div id="mainoutput">';  
+												if($type == '1'){ 
+													// Begin : leftoutput2;
+
+													echo '<div id="leftoutput">';	  
+														echo '<a href="void:(0)" data-toggle="collapse" data-target="#row'. $row['id'] . '"><p>'. $row['menu_name'] . '</p></a>';
+													echo '</div>';
+													// End : leftoutput2;
+
+													echo '<div id="rightoutput">';
+														echo '<div id="addimage">';
+															echo "<a href='add_subcategory_by_id.php?ID=$main_id'>" . '<i class="fa fa-lg fa-plus-square" aria-hidden="true" title="Add subcategory"></i>' . "</a>";
+														echo '</div>';
+
+														echo '<div id="addimage">';
+															echo "<a href='add_item_by_id.php?ID=$main_id'>" . '<i class="fa fa-lg fa-plus-square-o" aria-hidden="true" title="Add item"></i>' . "</a>";
+														echo '</div>';	
+
+														echo '<div id="leftimage">';
+															echo "<a href='update.php?ID=$main_id'>" . '<i class="fa fa-lg fa-pencil" aria-hidden="true" title="Update"></i>' . "</a>";
+														echo '</div>';
+
+														echo '<div id="leftimage">';
+															echo "<a href='delete_category.php?ID=$main_id' onclick=\"return confirm('are you sure?')\">" . '<i class="fa fa-lg  fa-trash" aria-hidden="true" title="Delete"></i>' . "</a>";
+														echo '</div>';
+													echo '</div>';
+												}//End : if ($type == '1'); 
+												else{
+													// Begin : leftoutput2;
+													echo '<div id="leftoutput2">';	
+														echo '<div id="leftnameoutput">';
+															echo '<strong>' . '<p>'. $row['menu_name'] . '</p>' . '</strong>';
+														echo '</div>';
+														echo '<div id="leftimageoutput">';	  
+															echo '<img src="'.$row["image"].'" />';
+														echo '</div>';
+														echo '<div id="leftdescriptionoutput">';	  
+															echo '<p>'. $row['description'] . '</p>';
+														echo '</div>';
+														echo '<div id="leftpriceoutput">';	  
+															echo '<p>'. ' Price : ' .$row['price'] / 100 . '</p>';
+														echo '</div>';
+													echo '</div>';
+													// End : leftoutput2;
+
+													echo '<div id="rightoutput2">';
+														echo '<div id="rightimage">';
+															echo "<a href='update_item.php?ID=$main_id'>" . '<i class="fa fa-lg fa-pencil" aria-hidden="true"></i>' . "</a>";
+														echo '</div>';
+
+														echo '<div id="rightimage">';
+															echo "<a href='delete_item.php?ID=$main_id' onclick=\"return confirm('are you sure?')\">" . '<i class="fa fa-lg  fa-trash" aria-hidden="true" title="Delete"></i>' . "</a>";
+														echo '</div>';
+													echo '</div>';
+												}
+											echo '</div>';
+											// End : mainoutput;
+
+										echo '</div>';
+										// End : output2;
+
+									echo '</li>';
+									echo '<div id="row'. $row['id'] . '" class="collapse">';
+										display_menus($row['id']);
+									echo "</div>";
+								}// End : if( $status == '0');		
 							}
-							return $arr;
-							echo $arr;
-				}
-				*/
+						echo "</ul>";
+					}// End : if(mysql_num_rows($query) > 0);
+				}// End : function display_menus();
 
-				function buildTree(array $elements, $parentId = 0) {
-				    $branch = array();
-
-				    foreach ($elements as $element) {
-				        if ($element['category_id'] == $category_id) {
-				            $children = buildTree($elements, $element['	sub_category_id']);
-				            if ($children) {
-				                $element['children'] = $children;
-				            }
-				            $branch[] = $element;
-				        }
-				    }
-
-				    return $branch;
-				}
-
-				//$tree = buildTree($result);
+				display_menus();
 
 
-							echo '<li>';
-								echo '<div id="output2">';   
-									echo '<div id="leftoutput2">';	    
-											echo '<p>'. $children['sub_name'] . '</p>';
-									echo '</div>';
-									echo '<div id="rightoutput2">';     
-										echo '<div id="leftimage">';
-											echo '<img src="Images/update.png" />';
-										echo '</div>';
-										echo '<div id="rightimage">';
-											echo '<img src="Images/delete.png" />';
-										echo '</div>';
-									echo '</div>';
-								echo '</div>';
-							echo '</li>';
-						
-				
-				
-				for ($i=0; $i <$num_rows ; $i++) { 
-					$result = mysql_fetch_array($select);
-					$category_id = $result['id'];
-					
-					//categoryChild($category_id);
-
-					echo '<ul>';
-						echo '<li>';
-							echo '<div id="output">';   
-								echo '<div id="leftoutput">';	    
-										echo '<p>' . $result['category_name'] . '</p>' ;
-								echo '</div>';
-								echo '<div id="rightoutput">';     
-									echo '<div id="leftimage">';
-										echo '<img src="Images/update.png" />';
-									echo '</div>';
-									echo '<div id="rightimage">';
-										echo '<img src="Images/delete.png" />';
-									echo '</div>';
-								echo '</div>';
-							echo '</div>';
-						echo '</li>';
-
-
-
-
-
-						echo '<ul>';
-
-						echo '<li>';
-								echo '<div id="output2">';   
-									echo '<div id="leftoutput2">';	    
-											echo '<p>'. categoryChild($category_id) . '</p>';
-									echo '</div>';
-									echo '<div id="rightoutput2">';     
-										echo '<div id="leftimage">';
-											echo '<img src="Images/update.png" />';
-										echo '</div>';
-										echo '<div id="rightimage">';
-											echo '<img src="Images/delete.png" />';
-										echo '</div>';
-									echo '</div>';
-								echo '</div>';
-						echo '</li>';
-						
-							echo "</br>";echo "</br>";
-
-							echo '<li>';
-								echo '<div id="leftoutput3">';
-									echo '<p>' . "<a href = 'add_subcategory.php?ID=$category_id'> Add subcategory </a>" . '</p>';
-								echo '</div>';
-							echo '</li>';
-
-							echo '<li>';
-								echo '<div id="leftoutput4">';
-									echo '<p>' . "<a href = 'add_item.php?ID=$category_id'> Add item </a>" . '</p>';
-								echo '</div>';
-							echo '</li>';
-
-						echo '</ul>';
-					echo '</ul>';
-				}
-				
-			?>
-			
-
-
-		
-			
-				
+			?>		
 	</body>		
 </html>

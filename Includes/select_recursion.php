@@ -12,16 +12,71 @@
 				$conn = mysql_pconnect('localhost', 'root');
 				$dbconn = mysql_select_db('products');		
 				$select = mysql_query("select * from category");
-				$num_rows = mysql_num_rows($select);
+				$rows = mysql_num_rows($select);
+				$result = mysql_fetch_array($select);
+				$category_id = $result['id'];
+				print_r($result);
+
+				/*
+				function getTree($category_id)
+				{
+							$arr = array();
+
+							$result = mysql_query("select * from sub_category where category_id='$category_id'");
+							while ($row = mysql_fetch_array($result)) { 
+								$arr[] = array(
+									"Title" => $row["sub_name"],
+									"Children" => getTree($row["sub_name"])
+								);
+							}
+							return $arr;
+							echo $arr;
+				}
+				*/
+
+				function buildTree(array $elements, $parentId = 0) {
+				    $branch = array();
+
+				    foreach ($elements as $element) {
+				        if ($element['category_id'] == $category_id) {
+				            $children = buildTree($elements, $element['	sub_category_id']);
+				            if ($children) {
+				                $element['children'] = $children;
+				            }
+				            $branch[] = $element;
+				        }
+				    }
+
+				    return $branch;
+				}
+
+				//$tree = buildTree($result);
+
+
+							echo '<li>';
+								echo '<div id="output2">';   
+									echo '<div id="leftoutput2">';	    
+											echo '<p>'. $children['sub_name'] . '</p>';
+									echo '</div>';
+									echo '<div id="rightoutput2">';     
+										echo '<div id="leftimage">';
+											echo '<img src="Images/update.png" />';
+										echo '</div>';
+										echo '<div id="rightimage">';
+											echo '<img src="Images/delete.png" />';
+										echo '</div>';
+									echo '</div>';
+								echo '</div>';
+							echo '</li>';
+						
 				
 				
 				for ($i=0; $i <$num_rows ; $i++) { 
 					$result = mysql_fetch_array($select);
 					$category_id = $result['id'];
 					
-					
-					$selectsub = mysql_query("select * from sub_category where category_id='$category_id'");
-					$sub_num_rows = mysql_num_rows($selectsub);
+					//categoryChild($category_id);
+
 					echo '<ul>';
 						echo '<li>';
 							echo '<div id="output">';   
@@ -42,14 +97,13 @@
 
 
 
-						echo '<ul>';
-						for ($j=0; $j < $sub_num_rows; $j++) { 
-							$sub_result = mysql_fetch_array($selectsub);
 
-							echo '<li>';
+						echo '<ul>';
+
+						echo '<li>';
 								echo '<div id="output2">';   
 									echo '<div id="leftoutput2">';	    
-											echo '<p>'. $sub_result['sub_name'] . '</p>';
+											echo '<p>'. categoryChild($category_id) . '</p>';
 									echo '</div>';
 									echo '<div id="rightoutput2">';     
 										echo '<div id="leftimage">';
@@ -60,8 +114,8 @@
 										echo '</div>';
 									echo '</div>';
 								echo '</div>';
-							echo '</li>';
-						}
+						echo '</li>';
+						
 							echo "</br>";echo "</br>";
 
 							echo '<li>';

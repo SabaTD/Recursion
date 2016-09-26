@@ -1,15 +1,20 @@
 <?php
-	$conn=mysql_pconnect('localhost','root');
-	$dbconn=mysql_select_db('products');
+	mysql_connect("localhost", "root", "") or die(mysql_error());
+	mysql_select_db("products") or die(mysql_error());;
 	
-	if(isset($_POST["sub_category"])){ $sub_category = $_POST["sub_category"]; }
-	if(isset($_POST["category_id"])){ $category_id = $_POST["category_id"]; }
-	if($sub_category == ''){ 
+	if(isset($_POST["submenu"])){ $submenu = $_POST["submenu"]; }
+	if(isset($_POST["ParentName"])){ $ParentName = $_POST["ParentName"]; }
+
+	$select = mysql_query("SELECT * FROM menus WHERE menu_name='$ParentName'");
+	$result = mysql_fetch_array($select);
+	$menu_name = $result['id'];
+
+	if($submenu == ''){ 
 		$msg="Can not add Sub category";
-		header("Location:index.php?alert=$msg");
+		header("Location:add_subcategory.php?alert=$msg");
 	}
 	else{ 
-		$ins=mysql_query("insert into sub_category(sub_name, category_id) values('$sub_category', '$category_id')");
+		$ins=mysql_query("insert into menus(menu_name, parent_id, type) values('$submenu', '$menu_name', 1)");
 		$msg="Sub category added successfully";
 		header("Location:index.php?alert=$msg");
 	}

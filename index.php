@@ -11,20 +11,11 @@
 		<div class="container">
 			
 			<?php 
-				include 'Includes/header.php'; 
-				if(isset($_GET["alert"])){ $msg=$_GET["alert"]; echo $msg;}
-				// Begin : add_category
-				echo "<div id='add_category'>";
-					echo "<strong id='title'>"." Add category "."</strong>";
-					echo "<form action='add_category_action.php'  method='post' class = 'form-group' >";
-						echo "<input type='text' name='category_name' class = 'form-control' >"."<br />";
-						echo "<input type='submit' value='Add' class = 'btn btn-primary'>";
-					echo "</form>";
-				echo "</div>";
-				// End : add_category
+				include 'add_category.php'; 
+
 			?>
 			
-			<?php// include_once 'Includes/select.php'; ?>
+			<?php include 'Includes/select.php'; ?>
 			
 		</div>
 		<!-- End : container -->
