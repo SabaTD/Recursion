@@ -21,15 +21,16 @@
 				$select = mysql_query("SELECT * FROM menus WHERE id='$ID'");
 				$result = mysql_fetch_array($select);
 				$menu_name = $result['menu_name'];
+				$rounded = $result['price'] /100;
 
 				// Begin : add_category
 				echo "<div id='add_category'>";
 					echo "<strong id='title'>"." Updating Item : "."</strong>" . $menu_name;
-					echo "<form action='update_item_action.php'  method='post' class = 'form-group' >";
-						echo '<input type="text" name="item_name" class = "form-control" value="'.$result["menu_name"].'"><br />';
-						echo '<input type="text" name="item_desc" class = "form-control" value="'.$result["description"].'"><br />';
-						echo '<input type="text" name="item_price" class = "form-control" value="'.$result["price"].'"><br />';
-						echo '<input type="file" name="photo" class ="form-control"><br />';
+					echo "<form action='update_item_action.php' enctype='multipart/form-data' method='post' class = 'form-group' >";
+						echo '<input type="text" name="item_name" class = "form-control" maxlength="50" required="required" value="'.$result["menu_name"].'" /><br />';
+						echo '<textarea name="item_desc" class="form-control" maxlength="255" required="required">' . $result["description"] . '</textarea><br />';
+						echo '<input type="number" min="0" step="0.00000000001" max="9999999" name="item_price" class ="form-control" required="required" value="'. $rounded .'"/><br />';
+						echo '<input type="file" name="photo" class ="form-control" required="required" /><br />';
 						echo "<input type='hidden' name='id' value='$ID' >";
 						echo "<input type='submit' value='Update' class = 'btn btn-primary'>";
 					echo "</form>";

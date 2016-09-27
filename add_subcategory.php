@@ -34,7 +34,7 @@
 							echo "</h5>";	
 						echo "</div>";
 
-						echo "<input type='text' name='submenu' class = 'form-control' placeholder='Name'>"."<br />";
+						echo "<input type='text' name='submenu' class = 'form-control' placeholder='Name' required = 'required'>"."<br />";
 						echo "<input type='submit' value='Add' class = 'btn btn-primary'>";
 					echo "</form>";
 					//end of form

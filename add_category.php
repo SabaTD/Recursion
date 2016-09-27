@@ -18,7 +18,7 @@
 				echo "<div id='add_category'>";
 					echo "<strong id='title'>"." Add category "."</strong>";
 					echo "<form action='add_category_action.php'  method='post' class = 'form-group' >";
-						echo "<input type='text' name='menu_name' class = 'form-control' >"."<br />";
+						echo "<input type='text' name='menu_name' class = 'form-control' required = 'required'>"."<br />";
 						echo "<input type='submit' value='Add' class = 'btn btn-primary'>";
 					echo "</form>";
 				echo "</div>";

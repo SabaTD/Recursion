@@ -25,7 +25,7 @@
 					echo "<form action='add_item_action.php' enctype='multipart/form-data'  method='post' class = 'form-group' >";
 						echo "<div id='form2'>";
 							echo "<h5 id = 'description1'>";
-								echo "<strong>" . "Subcategory of : " . "</strong>";
+								echo "<strong>" . "Item of : " . "</strong>";
 								echo "<select name='ParentName'>";
 									for ($i=0; $i <$num_rows; $i++) { 
 										$result = mysql_fetch_array($select);
@@ -34,10 +34,10 @@
 								echo "</select>";
 							echo "</h5>";	
 						echo "</div>";
-						echo '<input type="text" name="item_name" class ="form-control" placeholder="Name"><br />';
-						echo '<input type="text" name="item_desc" class ="form-control" placeholder="Description"><br />';
-						echo '<input type="text" name="item_price" class ="form-control" placeholder="Price"><br />';
-						echo '<input type="file" name="photo" class ="form-control"><br />';
+						echo '<input type="text" name="item_name" class ="form-control" placeholder="Name" maxlength="50" required="required" /><br/>';
+						echo '<textarea name="item_desc" class ="form-control" placeholder="Description" maxlength="255" required="required"></textarea> <br/>';
+						echo '<input type="number" min="0" step="0.00000000001" max="9999999" name="item_price" class ="form-control" placeholder="Price" required="required"/><br />';
+						echo '<input type="file" name="photo" class ="form-control" required="required"><br />';
 						echo "<input type='submit' value='Add' class = 'btn btn-primary'>";
 					echo "</form>";//end of form
 

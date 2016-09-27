@@ -25,8 +25,8 @@
 				// Begin : add_category
 				echo "<div id='add_category'>";
 					echo "<strong id='title'>"." Adding subcategory of : " . "</strong>" . $menu_name;
-					echo "<form action='add_category_by_id_action.php'  method='post' class = 'form-group' >";
-						echo "<input type='text' name='menu_name' class = 'form-control' >"."<br />";
+					echo "<form action='add_subcategory_by_id_action.php'  method='post' class = 'form-group' >";
+						echo "<input type='text' name='menu_name' class = 'form-control' required = 'required'>"."<br />";
 						echo "<input type='hidden' name='parent_id' value='$ID' >";
 						echo "<input type='submit' value='Add' class='btn btn-primary' >";
 					echo "</form>";
