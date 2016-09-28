@@ -1,25 +1,23 @@
+<?php session_start(); ?>
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Add Subcategory</title>
-		<link rel="stylesheet" type="text/css" href="Includes/Style/style.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	</head>
-	
+	<?php  include_once 'Includes/head.php';?>
 	<body>
 		<!-- Begin : container -->
 		<div class="container">
 		
 			<?php 
-				include 'Includes/header.php'; 
-				if(isset($_GET["alert"])){ $msg=$_GET["alert"]; echo $msg;}
-				$conn = mysql_pconnect('localhost', 'root');
-				$dbconn = mysql_select_db('products');		
+				include_once 'Includes/header1.php'; 
+				include_once 'Includes/connection.php';	
+
+				if (isset($_SESSION['message'])) {
+					echo $_SESSION['message'];
+					unset($_SESSION['message']);
+				}
+		
 				$select = mysql_query("SELECT * FROM menus WHERE type = '1' ");
 				$num_rows = mysql_num_rows($select);
 				
-
 				// Begin : add_subcategory
 					echo "<form action='add_subcategory_action.php'  method='post' class = 'form-group' >";
 						echo "<div id='form2'>";

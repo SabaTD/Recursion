@@ -1,24 +1,24 @@
+<?php session_start(); ?>
 <!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Add Category</title>
-		<link rel="stylesheet" type="text/css" href="Style/style.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	</head>
-	
+<html>	
+	<?php  include_once 'Includes/head.php';?>
 	<body>
 		<!-- Begin : container -->
 		<div class="container">
 		
 			<?php 
-				include 'Includes/header.php'; 
-				if(isset($_GET["alert"])){ $msg=$_GET["alert"]; echo $msg;}
+				include_once 'Includes/header1.php';
+
+				if (isset($_SESSION['message'])) {
+					echo $_SESSION['message'];
+					unset($_SESSION['message']);
+				}
+
 				// Begin : add_category
 				echo "<div id='add_category'>";
 					echo "<strong id='title'>"." Add category "."</strong>";
 					echo "<form action='add_category_action.php'  method='post' class = 'form-group' >";
-						echo "<input type='text' name='menu_name' class = 'form-control' required = 'required'>"."<br />";
+						echo "<input type='text' name='menu_name' class = 'form-control'>"."<br />";
 						echo "<input type='submit' value='Add' class = 'btn btn-primary'>";
 					echo "</form>";
 				echo "</div>";
